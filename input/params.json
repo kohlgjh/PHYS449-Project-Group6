@@ -1,9 +1,7 @@
 {
-    
-    "k_sbaf": 1,
-    "alph_sbaf": 1
-
-
-    
+    "learning_rate":0.001,
+    "num_epoch_in_iter": 50,
+    "num_iterations": 50,
+    "rand_weights_seed": 12345
 
 }
