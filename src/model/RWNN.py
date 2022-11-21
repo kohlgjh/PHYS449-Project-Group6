@@ -10,5 +10,5 @@ class RWNN(nn.Module):
     def forward(self):
         pass
 		
-	def backward(self):
-		pass
+    def backward(self):
+        pass
