@@ -40,7 +40,7 @@ def main(args):
     # run RWNN model
     # rwnn = RWNN(case, verbose)
     loss_fct = nn.MSELoss()
-    optimizer = nn.Adam()
+    optimizer = torch.optim.SGD(rwnn.parameters(), lr=learning_rate, momentum=momentum)
     
     # train_results = rwnn.train()
     # test_results = rwnn.test()
