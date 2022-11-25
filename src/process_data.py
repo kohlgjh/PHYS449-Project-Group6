@@ -65,4 +65,10 @@ def generate_train_and_test(case_num, seed=1234, num_samples=680):
     test_target[np.where(test_target1D == 1), :] = [0, 1, 0]
     test_target[np.where(test_target1D == 2), :] = [0, 0, 1]
 
+    # shuffle arrays so not clumped by target type due to concatenation
+    np.random.shuffle(test_target)
+    np.random.shuffle(test_input)
+    np.random.shuffle(train_target)
+    np.random.shuffle(train_input)
+
     return train_input, train_target, test_input, test_target
