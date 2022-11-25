@@ -2,10 +2,12 @@
 import argparse, json, sys
 sys.path.append('src')
 from src.model.RWNN import RWNN
-from src.visualizer.plotting import plot_train_test
-from src.data_processing.process_data import generate_train_and_test
+from src.model.vanilla import Vanilla
+from plotting import plot_train_test
+from process_data import generate_train_and_test
 import numpy as np
 import torch.nn as nn
+import torch
 
 def parse_args():
     '''Parses command line input for arguments'''
@@ -19,28 +21,27 @@ def parse_args():
 def main(args):
     '''Main code block'''
     verbose = True if args.verbose == "True" else False
-    case = str(args.case)
-    
-    np.random.seed(args.seed)
+    case = int(args.case) # case number stored as int
     
     # hyperparameters from json file
     with open(args.params) as paramfile:
         param = json.load(paramfile)
-        
-    case_param = param[case]
+
+    # pull parameters for particular feature case
+    case_param = param[f'case_{case}']
     input_size = case_param['input_size']
     hidden_size = case_param['hidden_size']
     epochs = case_param['epochs']
     learning_rate = case_param['learning_rate']
     momentum = case_param['momentum']
+    iterations = case_param['iterations']
 
     # generate datasets
-    train_input, train_target, test_input, test_target = generate_train_and_test(case)
+    data = generate_train_and_test(case, seed=int(args.seed))
 
-    # run RWNN model
-    # rwnn = RWNN(case, verbose)
-    loss_fct = nn.MSELoss()
-    optimizer = torch.optim.SGD(rwnn.parameters(), lr=learning_rate, momentum=momentum)
+    # creation of models
+    rwnn = RWNN(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size)
+    vanilla = Vanilla(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size)
     
     # train_results = rwnn.train()
     # test_results = rwnn.test()
