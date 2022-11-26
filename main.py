@@ -45,9 +45,9 @@ def main(args):
     vanilla_obj_vals, vanilla_cross_vals = vanilla.train_and_test(500)
 
     # pass results to graphic visualizer (training/testing plot)
-    res_path = args.param[:-19] + 'results/'
+    res_path = args.params[:-19] + 'results/'
     plot_train_test(rwnn_obj_vals, rwnn_cross_vals, vanilla_obj_vals, vanilla_cross_vals, res_path)
-
+    print('Training and testing complete. Results have been saved. ')
 
 if __name__ == "__main__":
     args = parse_args()
