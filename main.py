@@ -5,9 +5,6 @@ from src.model.RWNN import RWNN
 from src.model.vanilla import Vanilla
 from plotting import plot_train_test
 from process_data import generate_train_and_test
-import numpy as np
-import torch.nn as nn
-import torch
 
 def parse_args():
     '''Parses command line input for arguments'''
@@ -48,7 +45,8 @@ def main(args):
     vanilla_obj_vals, vanilla_cross_vals = vanilla.train_and_test(500)
 
     # pass results to graphic visualizer (training/testing plot)
-    # plot_train_test(train_results, test_results)
+    res_path = args.param[:-19] + 'results/'
+    plot_train_test(rwnn_obj_vals, rwnn_cross_vals, vanilla_obj_vals, vanilla_cross_vals, res_path)
 
 
 if __name__ == "__main__":
