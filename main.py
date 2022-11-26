@@ -5,6 +5,7 @@ from src.model.RWNN import RWNN
 from src.model.vanilla import Vanilla
 from plotting import plot_train_test
 from process_data import generate_train_and_test
+import os
 
 def parse_args():
     '''Parses command line input for arguments'''
@@ -44,8 +45,11 @@ def main(args):
     rwnn_obj_vals, rwnn_cross_vals = rwnn.train_and_test()
     vanilla_obj_vals, vanilla_cross_vals = vanilla.train_and_test(500)
 
-    # pass results to graphic visualizer (training/testing plot)
-    res_path = args.params[:-19] + 'results/'
+    # create path and pass results to graphic visualizer (training/testing plot)
+    res_path = args.params[:-19] + 'results/case_' + str(case) + '/'
+    isExist = os.path.exists(res_path)
+    if not isExist:
+        os.makedirs(res_path)
     plot_train_test(rwnn_obj_vals, rwnn_cross_vals, vanilla_obj_vals, vanilla_cross_vals, res_path)
     print('Training and testing complete. Results have been saved. ')
 
