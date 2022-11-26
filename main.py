@@ -42,9 +42,10 @@ def main(args):
 
     # creation of models
     rwnn = RWNN(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, args.device)
-    vanilla = Vanilla(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size)
+    vanilla = Vanilla(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, args.device)
     
     rwnn_obj_vals, rwnn_cross_vals = rwnn.train_and_test()
+    vanilla_obj_vals, vanilla_cross_vals = vanilla.train_and_test(500)
 
     # pass results to graphic visualizer (training/testing plot)
     # plot_train_test(train_results, test_results)

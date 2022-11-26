@@ -1,7 +1,6 @@
 '''Class for the creating and training RWNN model'''
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from src.model.model import BaseModel
 import numpy as np
 
@@ -69,7 +68,20 @@ class RWNN():
     def _accuracy(self, input, target) -> float:
         '''Returns accuracy evaluation as a percentage'''
         model_results = self.model.forward(input).cpu().detach().numpy()
-        # print(model_results)
+        targets = target.cpu().detach().numpy().astype(int)
+
+        # make highest val 1 and the rest 0
+        results_processed = np.zeros_like(model_results)
+        results_processed[np.arange(model_results.shape[0]), model_results.argmax(1)] = 1
+        results_processed = results_processed.astype(int)
+
+        # compare to the targets
+        correct = 0
+        for prediction, answer in zip(results_processed, targets):
+            if np.array_equal(prediction, answer): correct += 1
+
+        return (correct/targets.shape[0])*100
+
 
 
     def train_and_test(self) -> np.ndarray:
@@ -79,6 +91,11 @@ class RWNN():
         Returns arrays of all_objective_values, and all_cross_vals of shape:
         (num_iterations, num_epochs)
         '''
+        if self.verbose:
+            print("Beginning RWNN training...")
+
+        self.model.reset()
+
         all_obj_vals = np.empty((self.iterations, self.epochs), dtype=list)
         all_cross_vals = np.empty((self.iterations, self.epochs), dtype=list)
 
@@ -103,7 +120,10 @@ class RWNN():
 
                 if self.verbose:
                     if epoch == 0:
-                        print(f"Iteration: {iteration+1}/{self.iterations} Initial Loss: \t Training Loss: {obj_val.item():.3f} \t Test Loss: {cross_val.item():.3f}")
+                        train_accuracy = self._accuracy(self.train_input[iteration], self.train_target[iteration])
+                        test_accuracy = self._accuracy(self.test_input, self.test_target)
+                        print(f"Iteration: {iteration+1}/{self.iterations}")
+                        print(f"Start of iteration: \t Training Loss: {obj_val.item():.3f}  Training Accuracy: {train_accuracy:.1f}% \t Test Loss: {cross_val.item():.3f} Test Accuracy: {test_accuracy:.1f}%")
 
 
             # store current iteration's cross and obj vals
@@ -112,9 +132,11 @@ class RWNN():
 
             # console output to track training
             if self.verbose:
-                self._accuracy(self.test_input, self.test_target)
-                print(f"Iteration: {iteration+1}/{self.iterations} Final Loss: \t Training Loss: {obj_val.item():.3f} \t Test Loss: {cross_val.item():.3f}")
+                train_accuracy = self._accuracy(self.train_input[iteration], self.train_target[iteration])
+                test_accuracy = self._accuracy(self.test_input, self.test_target)
+                print(f"End of iteration: \t Training Loss: {obj_val.item():.3f}  Training Accuracy: {train_accuracy:.1f}% \t Test Loss: {cross_val.item():.3f}  Test Accuracy: {test_accuracy:.1f}%\n")
 
-
+        if self.verbose:
+            print("End of RWNN training...\n")
         return all_obj_vals, all_cross_vals
             

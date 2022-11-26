@@ -50,6 +50,10 @@ def generate_train_and_test(case_num, seed=1234, num_samples=680):
     train = np.concatenate((agg_0[0:int(num_samples*0.8), :], agg_1[0:int(num_samples*0.8), :], agg_2[0:int(num_samples*0.8), :]))
     test = np.concatenate((agg_0[int(num_samples*0.8):, :], agg_1[int(num_samples*0.8):, :], agg_2[int(num_samples*0.8):, :]))
 
+    # shuffle arrays so not clumped by target type due to concatenation
+    np.random.shuffle(train)
+    np.random.shuffle(test)
+
     # separating inputs and targets
     train_input, train_target1D = train[:, 1:], train[:, 0]
     test_input, test_target1D = test[:, 1:], test[:, 0]
@@ -64,11 +68,5 @@ def generate_train_and_test(case_num, seed=1234, num_samples=680):
     test_target[np.where(test_target1D == 0), :] = [1, 0, 0]
     test_target[np.where(test_target1D == 1), :] = [0, 1, 0]
     test_target[np.where(test_target1D == 2), :] = [0, 0, 1]
-
-    # shuffle arrays so not clumped by target type due to concatenation
-    np.random.shuffle(test_target)
-    np.random.shuffle(test_input)
-    np.random.shuffle(train_target)
-    np.random.shuffle(train_input)
 
     return train_input, train_target, test_input, test_target
