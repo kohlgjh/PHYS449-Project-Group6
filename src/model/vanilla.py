@@ -1,7 +1,7 @@
 '''Class for creating and training the vanilla model'''
 import torch
 import torch.nn as nn
-from model import model
+from src.model.model import BaseModel
 
 
 class Vanilla():
@@ -36,7 +36,7 @@ class Vanilla():
         self.train_input, self.train_target, self.test_input, self.test_target = data
 
         # intitialize model
-        self.model = model(input_size, hidden_size)
+        self.model = BaseModel(input_size, hidden_size)
 
         # optimizer and loss function
         self.loss_fct = nn.MSELoss()

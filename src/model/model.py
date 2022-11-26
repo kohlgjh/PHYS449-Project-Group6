@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-class model(nn.Module):
+class BaseModel(nn.Module):
     '''
     Base model used by both vanilla and RWNN networks.
 
@@ -17,13 +17,14 @@ class model(nn.Module):
         # define layers
         self.input_layer = nn.Linear(input_size, hidden_size)
         self.output_layer = nn.Linear(hidden_size, 3) # every case has three output neurons
+        self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
         '''Takes input data and returns softmaxed guess of exoplanet type'''
         x = self.input_layer(x)
         x = torch.sigmoid(x)
         x = self.output_layer(x)
-        x = nn.Softmax(x)
+        x = self.softmax(x)
         return x
 
     def reset(self):

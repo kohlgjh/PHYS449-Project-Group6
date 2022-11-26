@@ -16,6 +16,7 @@ def parse_args():
     parser.add_argument('-v', "--verbose", default="True", help="True/False for high/low verbosity")
     parser.add_argument("--seed", default=1234, help="random seed")
     parser.add_argument("--params", default='input/params.json', help="JSON filepath containing hyperparameters")
+    parser.add_argument("--device", default="cpu", help="cuda or cpu as device to run pytorch on")
     return parser.parse_args()
 
 def main(args):
@@ -40,11 +41,10 @@ def main(args):
     data = generate_train_and_test(case, seed=int(args.seed))
 
     # creation of models
-    rwnn = RWNN(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size)
+    rwnn = RWNN(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, args.device)
     vanilla = Vanilla(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size)
     
-    # train_results = rwnn.train()
-    # test_results = rwnn.test()
+    rwnn_obj_vals, rwnn_cross_vals = rwnn.train_and_test()
 
     # pass results to graphic visualizer (training/testing plot)
     # plot_train_test(train_results, test_results)

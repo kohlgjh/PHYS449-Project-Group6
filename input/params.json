@@ -1,10 +1,10 @@
 {
-	"case_1": {"input_size": 45, "hidden_size": 20, "epochs": 500, "learning_rate": 0.015, "momentum": 0.001, "iterations": 45},
-	"case_2": {"input_size": 6, "hidden_size": 4, "epochs": 300, "learning_rate": 0.1, "momentum": 0.01, "iterations": 45},
-	"case_3": {"input_size": 44, "hidden_size": 12, "epochs": 300, "learning_rate": 0.01, "momentum": 0.001, "iterations": 45},
-	"case_4": {"input_size": 4, "hidden_size": 3, "epochs": 400, "learning_rate": 0.2, "momentum": 0.3, "iterations": 45},
-	"case_5": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 45},
-	"case_6": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 45},
-	"case_7": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 45},
-	"case_8": {"input_size": 8, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 45}
+	"case_1": {"input_size": 45, "hidden_size": 20, "epochs": 500, "learning_rate": 0.015, "momentum": 0.001, "iterations": 20},
+	"case_2": {"input_size": 6, "hidden_size": 4, "epochs": 300, "learning_rate": 0.1, "momentum": 0.01, "iterations": 20},
+	"case_3": {"input_size": 44, "hidden_size": 12, "epochs": 300, "learning_rate": 0.01, "momentum": 0.001, "iterations": 20},
+	"case_4": {"input_size": 4, "hidden_size": 3, "epochs": 400, "learning_rate": 0.2, "momentum": 0.3, "iterations": 20},
+	"case_5": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 20},
+	"case_6": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 20},
+	"case_7": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 20},
+	"case_8": {"input_size": 8, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 20}
 }
