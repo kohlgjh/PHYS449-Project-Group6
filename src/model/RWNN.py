@@ -22,6 +22,12 @@ class RWNN():
         momentum of the optimizer
     verbose: bool
         True/False, to turn on/off verbose output during training
+    input_size: int
+        number of input neurons
+    hidden_size: int
+        number of neurons in the hidden layer
+    subset_size: int
+        number of samples in each subset
     device: str
         "cpu" or "cuda" to use the corresponding device 
 
@@ -32,11 +38,12 @@ class RWNN():
     carry over to the next iteration.
     '''
     def __init__(self, data, epochs:int, iterations:int, learning_rate: float, momentum:float, verbose:bool,
-                 input_size:int, hidden_size: int, device:str) -> None:
+                 input_size:int, hidden_size: int, subset_size:int, device:str) -> None:
         # save params as attributes
         self.epochs = epochs
         self.iterations = iterations
         self.verbose = verbose
+        self.subset_size = subset_size
 
         # data
         self.train_input, self.train_target, self.test_input, self.test_target = data
@@ -59,11 +66,17 @@ class RWNN():
         '''Method to generate subsets of training data, and return them'''  
         num_samples = self.train_input.shape[0]
         num_feature = self.train_input.shape[1]
-        subset_size = int(num_samples/self.iterations)
-        trim = num_samples - self.iterations*subset_size # amount to trim to reshape properly
+        random_ints = np.random.randint(0, num_samples, (self.iterations, self.subset_size))
 
-        self.train_input = np.reshape(self.train_input[:-trim], (self.iterations, subset_size, num_feature))
-        self.train_target = np.reshape(self.train_target[:-trim], (self.iterations, subset_size, 3))
+        input_subsets = np.empty((self.iterations, self.subset_size, num_feature))
+        target_subsets = np.empty((self.iterations, self.subset_size, 3))
+
+        for i in range(self.iterations):
+            input_subsets[i] = self.train_input[random_ints[i]]
+            target_subsets[i] = self.train_target[random_ints[i]]
+
+        self.train_input = input_subsets.copy()
+        self.train_target = target_subsets.copy()
 
     def _accuracy(self, input, target) -> float:
         '''Returns accuracy evaluation as a percentage'''
