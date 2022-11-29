@@ -2,7 +2,7 @@
 
 import matplotlib.pyplot as plt
 
-def plot_train_test(rwnn_obj_vals, rwnn_cross_vals, vanilla_obj_vals, vanilla_cross_vals, res_path):
+def plot_train_test(rwnn_obj_vals, rwnn_cross_vals, vanilla_obj_vals, vanilla_cross_vals, res_path, case):
     '''Plots the training and testing results'''
     
     # change format of RWNN results to plot sequential iterations
@@ -18,7 +18,7 @@ def plot_train_test(rwnn_obj_vals, rwnn_cross_vals, vanilla_obj_vals, vanilla_cr
     plt.plot(range(num_epochs), vanilla_obj_vals, label= "Vanilla Training", color="red")
     plt.plot(range(num_epochs), vanilla_cross_vals, label= " Vanilla Testing", color= "darkviolet")
     plt.legend()
-    plt.title('Loss of RWNN and Vanilla Models')
+    plt.title(f'Loss of RWNN and Vanilla Models\n Case {case}')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.savefig(res_path + 'loss_fig.pdf')

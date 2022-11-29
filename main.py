@@ -34,12 +34,13 @@ def main(args):
     learning_rate = case_param['learning_rate']
     momentum = case_param['momentum']
     iterations = case_param['iterations']
+    subset_size = case_param['subset_size']
 
     # generate datasets
     data = generate_train_and_test(case, seed=int(args.seed))
 
     # creation of models
-    rwnn = RWNN(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, args.device)
+    rwnn = RWNN(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, subset_size, args.device)
     vanilla = Vanilla(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, args.device)
     
     rwnn_obj_vals, rwnn_cross_vals = rwnn.train_and_test()
@@ -50,7 +51,7 @@ def main(args):
     isExist = os.path.exists(res_path)
     if not isExist:
         os.makedirs(res_path)
-    plot_train_test(rwnn_obj_vals, rwnn_cross_vals, vanilla_obj_vals, vanilla_cross_vals, res_path)
+    plot_train_test(rwnn_obj_vals, rwnn_cross_vals, vanilla_obj_vals, vanilla_cross_vals, res_path, case)
     print('Training and testing complete. Results have been saved. ')
 
 if __name__ == "__main__":
