@@ -52,7 +52,17 @@ class Vanilla():
         self.optimizer = torch.optim.SGD(self.model.parameters(), lr=learning_rate, momentum=momentum)
 
     def _accuracy(self, input, target) -> float:
-        '''Returns accuracy evaluation as a percentage'''
+        '''
+        Returns accuracy evaluation percentage as a tuple, for each planet type:
+        unhabitable, psychro-, and meso-
+        
+        Params
+        ---
+        input: 
+            2D array of input data to be put through model
+        target: 
+            2D array of corresponding targets for input data
+        '''
         model_results = self.model.forward(input).cpu().detach().numpy()
         targets = target.cpu().detach().numpy().astype(int)
 
@@ -61,12 +71,29 @@ class Vanilla():
         results_processed[np.arange(model_results.shape[0]), model_results.argmax(1)] = 1
         results_processed = results_processed.astype(int)
 
-        # compare to the targets
-        correct = 0
-        for prediction, answer in zip(results_processed, targets):
-            if np.array_equal(prediction, answer): correct += 1
+        #separate into types of planets
+        where0 = np.where((targets == (1, 0, 0)).all(axis=1))[0]
+        where1 = np.where((targets == (0, 1, 0)).all(axis=1))[0]
+        where2 = np.where((targets == (0, 0, 1)).all(axis=1))[0]
 
-        return (correct/targets.shape[0])*100
+        # calculate num correct for each
+        correct0, correct1, correct2 = 0, 0, 0
+
+        for prediction, answer in zip(results_processed[where0], targets[where0]):
+            if np.array_equal(prediction, answer): correct0 += 1
+
+        for prediction, answer in zip(results_processed[where1], targets[where1]):
+            if np.array_equal(prediction, answer): correct1 += 1
+
+        for prediction, answer in zip(results_processed[where2], targets[where2]):
+            if np.array_equal(prediction, answer): correct2 += 1
+
+        # calcualte accuracy for each
+        accuracy0 = correct0/len(where0)*100
+        accuracy1 = correct1/len(where1)*100
+        accuracy2 = correct2/len(where2)*100
+
+        return accuracy0, accuracy1, accuracy2
 
     def train_and_test(self, display_epochs:int):
         '''
@@ -103,9 +130,12 @@ class Vanilla():
             # console output to track training
             if (epoch+1) % display_epochs == 0:
                 if self.verbose:
-                    train_accuracy = self._accuracy(self.train_input, self.train_target)
-                    test_accuracy = self._accuracy(self.test_input, self.test_target)
-                    print(f"Epoch {epoch+1}/{self.epochs*self.iterations}: \t Training Loss: {obj_val.item():.3f}  Training Accuracy: {train_accuracy:.1f}% \t Test Loss: {cross_val.item():.3f}  Test Accuracy: {test_accuracy:.1f}%\n")
+                    train_acc = self._accuracy(self.train_input, self.train_target)
+                    test_acc = self._accuracy(self.test_input, self.test_target)
+                    print(f"Epoch {epoch+1}/{self.epochs*self.iterations}: \t Training Loss: {obj_val.item():.3f} \t Test Loss: {cross_val.item():.3f}")
+                    print(f"\t\t\t Training Accuracy: Un: {train_acc[0]:.1f}%  Ps: {train_acc[1]:.1f}%  Mes: {train_acc[2]:.1f}%")
+                    print(f"\t\t\t Test Accuracy:     Un: {test_acc[0]:.1f}%  Ps: {test_acc[1]:.1f}%  Mes: {test_acc[2]:.1f}%\n")
+
 
         if self.verbose:
             print("End of vanilla training...")
