@@ -1,5 +1,5 @@
 {
-	"case_1": {"input_size": 45, "hidden_size": 20, "epochs": 500, "learning_rate": 0.015, "momentum": 0.001, "iterations": 20, "subset_size":250},
+	"case_1": {"input_size": 45, "hidden_size": 25, "epochs": 600, "learning_rate": 0.011, "momentum": 0.001, "iterations": 20, "subset_size":275},
 	"case_2": {"input_size": 6, "hidden_size": 4, "epochs": 300, "learning_rate": 0.1, "momentum": 0.01, "iterations": 20, "subset_size":250},
 	"case_3": {"input_size": 44, "hidden_size": 12, "epochs": 300, "learning_rate": 0.01, "momentum": 0.001, "iterations": 20, "subset_size":250},
 	"case_4": {"input_size": 4, "hidden_size": 3, "epochs": 400, "learning_rate": 0.2, "momentum": 0.3, "iterations": 20, "subset_size":250},

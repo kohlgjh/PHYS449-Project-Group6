@@ -1,0 +1,5 @@
+Case 1:
+
+Can either identify meso or psychro but not both at the same time.
+This is probably due to subtle differences in only a few features between the two that
+ends up getting lost amongst the large quantity of features (45).
