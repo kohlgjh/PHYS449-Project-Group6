@@ -24,7 +24,6 @@ class BaseModel(nn.Module):
         x = self.input_layer(x)
         x = torch.sigmoid(x)
         x = self.output_layer(x)
-        # x = torch.sigmoid(x)
         x = self.softmax(x)
         return x
 

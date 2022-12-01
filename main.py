@@ -40,7 +40,7 @@ def main(args):
     data = generate_train_and_test(case, seed=int(args.seed))
 
     # creation of models
-    rwnn = RWNN(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, subset_size, args.device)
+    rwnn = RWNN(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, subset_size, args.device, args.seed)
     vanilla = Vanilla(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, args.device)
     
     rwnn_obj_vals, rwnn_cross_vals = rwnn.train_and_test()
