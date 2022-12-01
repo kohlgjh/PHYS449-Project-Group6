@@ -136,6 +136,13 @@ class Vanilla():
                     print(f"\t\t\t Training Accuracy: Un: {train_acc[0]:.1f}%  Ps: {train_acc[1]:.1f}%  Mes: {train_acc[2]:.1f}%")
                     print(f"\t\t\t Test Accuracy:     Un: {test_acc[0]:.1f}%  Ps: {test_acc[1]:.1f}%  Mes: {test_acc[2]:.1f}%\n")
 
+        if self.verbose:
+            train_acc = self._accuracy(self.train_input, self.train_target)
+            test_acc = self._accuracy(self.test_input, self.test_target)
+            print(f"Final Results: \t\t Training Loss: {obj_val.item():.3f} \t Test Loss: {cross_val.item():.3f}")
+            print(f"\t\t\t Training Accuracy: Un: {train_acc[0]:.1f}%  Ps: {train_acc[1]:.1f}%  Mes: {train_acc[2]:.1f}%")
+            print(f"\t\t\t Test Accuracy:     Un: {test_acc[0]:.1f}%  Ps: {test_acc[1]:.1f}%  Mes: {test_acc[2]:.1f}%\n")
+
 
         if self.verbose:
             print("End of vanilla training...")
