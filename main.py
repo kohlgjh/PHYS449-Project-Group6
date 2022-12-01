@@ -43,15 +43,15 @@ def main(args):
     rwnn = RWNN(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, subset_size, args.device, args.seed)
     vanilla = Vanilla(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, args.device)
     
-    rwnn_obj_vals, rwnn_cross_vals = rwnn.train_and_test()
-    vanilla_obj_vals, vanilla_cross_vals = vanilla.train_and_test(500)
+    rwnn_obj_vals, rwnn_cross_vals, rwnn_train_acc, rwnn_test_acc = rwnn.train_and_test()
+    vanilla_obj_vals, vanilla_cross_vals, vanilla_train_acc, vanilla_test_acc = vanilla.train_and_test(500)
 
     # create path and pass results to graphic visualizer (training/testing plot)
     res_path = args.params[:-19] + 'results/case_' + str(case) + '/'
     isExist = os.path.exists(res_path)
     if not isExist:
         os.makedirs(res_path)
-    plot_train_test(rwnn_obj_vals, rwnn_cross_vals, vanilla_obj_vals, vanilla_cross_vals, res_path, case)
+    plot_train_test(rwnn_obj_vals, rwnn_cross_vals, rwnn_train_acc, rwnn_test_acc, vanilla_obj_vals, vanilla_cross_vals, vanilla_train_acc, vanilla_test_acc, res_path, case)
     print('Training and testing complete. Results have been saved. ')
 
 if __name__ == "__main__":

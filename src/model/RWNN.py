@@ -139,11 +139,15 @@ class RWNN():
 
         all_obj_vals = np.empty((self.iterations, self.epochs), dtype=list)
         all_cross_vals = np.empty((self.iterations, self.epochs), dtype=list)
+        all_train_acc = np.empty((self.iterations, self.epochs,3), dtype=list)
+        all_test_acc = np.empty((self.iterations, self.epochs,3), dtype=list)
 
         for iteration in range(self.iterations):
 
             iter_obj_vals = []
             iter_cross_vals = []
+            iter_train_vals = []
+            iter_test_vals = []
 
             for epoch in range(self.epochs):
 
@@ -153,11 +157,16 @@ class RWNN():
                 obj_val.backward()
                 self.optimizer.step()
                 iter_obj_vals.append(obj_val.item())
+                train_acc = self._accuracy(self.train_input[iteration], self.train_target[iteration])
+                iter_train_vals.append(train_acc)
+                
 
                 # test as training goes on
                 with torch.no_grad():
                     cross_val = self.loss_fct(self.model.forward(self.test_input), self.test_target)
                     iter_cross_vals.append(cross_val.item())
+                    test_acc = self._accuracy(self.test_input, self.test_target)
+                    iter_test_vals.append(test_acc)
 
                 if self.verbose:
                     if epoch == 0:
@@ -166,11 +175,12 @@ class RWNN():
             # store current iteration's cross and obj vals
             all_obj_vals[iteration] = iter_obj_vals
             all_cross_vals[iteration] = iter_cross_vals
+            all_train_acc[iteration] = train_acc
+            all_test_acc[iteration] = test_acc
+            
 
             # console output to track training
             if self.verbose:
-                train_acc = self._accuracy(self.train_input[iteration], self.train_target[iteration])
-                test_acc = self._accuracy(self.test_input, self.test_target)
                 print(f"End of iteration: \t Training Loss: {obj_val.item():.3f} \t Test Loss: {cross_val.item():.3f}")
                 print(f"\t\t\t Training Accuracy: Un: {train_acc[0]:.1f}%  Ps: {train_acc[1]:.1f}%  Mes: {train_acc[2]:.1f}%")
                 print(f"\t\t\t Test Accuracy:     Un: {test_acc[0]:.1f}%  Ps: {test_acc[1]:.1f}%  Mes: {test_acc[2]:.1f}%\n")
@@ -178,5 +188,5 @@ class RWNN():
 
         if self.verbose:
             print("End of RWNN training...\n")
-        return all_obj_vals, all_cross_vals
+        return all_obj_vals, all_cross_vals, all_train_acc, all_test_acc
             

@@ -112,6 +112,8 @@ class Vanilla():
 
         obj_vals = []
         cross_vals = []
+        all_train_acc = []
+        all_test_acc = []
 
         for epoch in range(self.epochs * self.iterations):
 
@@ -121,24 +123,24 @@ class Vanilla():
             obj_val.backward()
             self.optimizer.step()
             obj_vals.append(obj_val.item())
+            train_acc = self._accuracy(self.train_input, self.train_target)
+            all_train_acc.append(train_acc)
 
             # test as training goes on
             with torch.no_grad():
                 cross_val = self.loss_fct(self.model.forward(self.test_input), self.test_target)
                 cross_vals.append(cross_val.item())
+                test_acc = self._accuracy(self.test_input, self.test_target)
+                all_test_acc.append(test_acc)
 
             # console output to track training
             if (epoch+1) % display_epochs == 0:
                 if self.verbose:
-                    train_acc = self._accuracy(self.train_input, self.train_target)
-                    test_acc = self._accuracy(self.test_input, self.test_target)
                     print(f"Epoch {epoch+1}/{self.epochs*self.iterations}: \t Training Loss: {obj_val.item():.3f} \t Test Loss: {cross_val.item():.3f}")
                     print(f"\t\t\t Training Accuracy: Un: {train_acc[0]:.1f}%  Ps: {train_acc[1]:.1f}%  Mes: {train_acc[2]:.1f}%")
                     print(f"\t\t\t Test Accuracy:     Un: {test_acc[0]:.1f}%  Ps: {test_acc[1]:.1f}%  Mes: {test_acc[2]:.1f}%\n")
 
         if self.verbose:
-            train_acc = self._accuracy(self.train_input, self.train_target)
-            test_acc = self._accuracy(self.test_input, self.test_target)
             print(f"Final Results: \t\t Training Loss: {obj_val.item():.3f} \t Test Loss: {cross_val.item():.3f}")
             print(f"\t\t\t Training Accuracy: Un: {train_acc[0]:.1f}%  Ps: {train_acc[1]:.1f}%  Mes: {train_acc[2]:.1f}%")
             print(f"\t\t\t Test Accuracy:     Un: {test_acc[0]:.1f}%  Ps: {test_acc[1]:.1f}%  Mes: {test_acc[2]:.1f}%\n")
@@ -146,4 +148,4 @@ class Vanilla():
 
         if self.verbose:
             print("End of vanilla training...")
-        return obj_vals, cross_vals
+        return obj_vals, cross_vals, all_train_acc, all_test_acc

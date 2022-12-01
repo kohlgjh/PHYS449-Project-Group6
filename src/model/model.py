@@ -14,6 +14,7 @@ class BaseModel(nn.Module):
     '''
     def __init__(self, input_size:int, hidden_size:int) -> None:
         super().__init__()
+        
         # define layers
         self.input_layer = nn.Linear(input_size, hidden_size)
         self.output_layer = nn.Linear(hidden_size, 3) # every case has three output neurons
