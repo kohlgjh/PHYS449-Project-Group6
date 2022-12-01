@@ -65,6 +65,8 @@ Will not learn regardless of parameters. I think it is because case 5 is only th
 radius and some info about the star. The network can't seem to find any correlation between
 the features and the habitability.
 
+Jumps between all classifiers going to one of the three labels. 
+
 "case_5": {"input_size": 7, "hidden_size": 25, "epochs": 500, "learning_rate": 0.09, "momentum": 0.01, "iterations": 19, "subset_size":200}
 
 RWNN:
