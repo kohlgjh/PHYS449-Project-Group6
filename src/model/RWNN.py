@@ -38,7 +38,7 @@ class RWNN():
     carry over to the next iteration.
     '''
     def __init__(self, data, epochs:int, iterations:int, learning_rate: float, momentum:float, verbose:bool,
-                 input_size:int, hidden_size: int, subset_size:int, device:str) -> None:
+                 input_size:int, hidden_size: int, subset_size:int, device:str, seed:int) -> None:
         # save params as attributes
         self.epochs = epochs
         self.iterations = iterations
@@ -47,7 +47,7 @@ class RWNN():
 
         # data
         self.train_input, self.train_target, self.test_input, self.test_target = data
-        self._generate_subsets()
+        self._generate_subsets(seed)
 
         # convert to tensors
         self.train_input = torch.from_numpy(self.train_input).type(torch.float).to(device)
@@ -62,10 +62,11 @@ class RWNN():
         self.loss_fct = nn.MSELoss()
         self.optimizer = torch.optim.SGD(self.model.parameters(), lr=learning_rate, momentum=momentum)
 
-    def _generate_subsets(self):
+    def _generate_subsets(self, seed):
         '''Method to generate subsets of training data, and return them'''  
         num_samples = self.train_input.shape[0]
         num_feature = self.train_input.shape[1]
+        np.random.seed(seed)
         random_ints = np.random.randint(0, num_samples, (self.iterations, self.subset_size))
 
         input_subsets = np.empty((self.iterations, self.subset_size, num_feature))
@@ -160,13 +161,7 @@ class RWNN():
 
                 if self.verbose:
                     if epoch == 0:
-                        train_acc = self._accuracy(self.train_input[iteration], self.train_target[iteration])
-                        test_acc = self._accuracy(self.test_input, self.test_target)
                         print(f"Iteration: {iteration+1}/{self.iterations}")
-                        print(f"Start of iteration: \t Training Loss: {obj_val.item():.3f} \t Test Loss: {cross_val.item():.3f}")
-                        print(f"\t\t\t Training Accuracy: Un: {train_acc[0]:.1f}%  Ps: {train_acc[1]:.1f}%  Mes: {train_acc[2]:.1f}%")
-                        print(f"\t\t\t Test Accuracy:     Un: {test_acc[0]:.1f}%  Ps: {test_acc[1]:.1f}%  Mes: {test_acc[2]:.1f}%\n")
-
 
             # store current iteration's cross and obj vals
             all_obj_vals[iteration] = iter_obj_vals
