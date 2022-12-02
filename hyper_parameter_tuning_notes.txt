@@ -82,16 +82,52 @@ Final Results:           Training Loss: 0.062    Test Loss: 0.066
 Case 6:
 
 Loss plateaus for both methods with essentially no difference between the two.
+RWNN runs faster though because it uses less data to train per epoch.
 
 RWNN:
 
 Iteration: 35/35
-End of iteration:        Training Loss: 0.173    Test Loss: 0.170
-                         Training Accuracy: Un: 71.2%  Ps: 73.5%  Mes: 28.8%
-                         Test Accuracy:     Un: 79.4%  Ps: 70.6%  Mes: 26.5%
+End of iteration:        Training Loss: 0.174    Test Loss: 0.171
+                         Training Accuracy: Un: 68.2%  Ps: 73.5%  Mes: 28.8%
+                         Test Accuracy:     Un: 80.1%  Ps: 70.6%  Mes: 26.5%
 
 Vanilla:
 
-Final Results:           Training Loss: 0.168    Test Loss: 0.169
-                         Training Accuracy: Un: 78.3%  Ps: 76.5%  Mes: 27.8%
-                         Test Accuracy:     Un: 79.4%  Ps: 70.6%  Mes: 26.5%
+Final Results:           Training Loss: 0.169    Test Loss: 0.171
+                         Training Accuracy: Un: 77.9%  Ps: 76.5%  Mes: 25.6%
+                         Test Accuracy:     Un: 80.1%  Ps: 70.6%  Mes: 25.0%
+
+
+Case 7:
+
+Essentially identical to case 6. Only difference in features is that case 7
+uses minimum planet mass, and case 6 uses planet mass. (Which is often the same).
+
+RWNN:
+
+Iteration: 35/35
+End of iteration:        Training Loss: 0.175    Test Loss: 0.171
+                         Training Accuracy: Un: 77.6%  Ps: 62.5%  Mes: 24.7%
+                         Test Accuracy:     Un: 80.9%  Ps: 65.4%  Mes: 27.9%
+
+Vanilla:
+
+Final Results:           Training Loss: 0.170    Test Loss: 0.171
+                         Training Accuracy: Un: 78.7%  Ps: 76.5%  Mes: 25.6%
+                         Test Accuracy:     Un: 80.1%  Ps: 70.6%  Mes: 25.0%
+
+
+Case 8:
+
+RWNN:
+
+Iteration: 35/35
+End of iteration:        Training Loss: 0.122    Test Loss: 0.118
+                         Training Accuracy: Un: 89.4%  Ps: 85.0%  Mes: 58.8%
+                         Test Accuracy:     Un: 92.6%  Ps: 88.2%  Mes: 58.1%
+
+Vanilla:
+
+Final Results:           Training Loss: 0.116    Test Loss: 0.116
+                         Training Accuracy: Un: 90.4%  Ps: 88.1%  Mes: 69.9%
+                         Test Accuracy:     Un: 90.4%  Ps: 88.2%  Mes: 69.9%

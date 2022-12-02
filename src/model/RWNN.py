@@ -180,13 +180,12 @@ class RWNN():
             
 
             # console output to track training
-            if self.verbose:
+            if self.verbose or iteration == self.iterations-1:
                 print(f"End of iteration: \t Training Loss: {obj_val.item():.3f} \t Test Loss: {cross_val.item():.3f}")
                 print(f"\t\t\t Training Accuracy: Un: {train_acc[0]:.1f}%  Ps: {train_acc[1]:.1f}%  Mes: {train_acc[2]:.1f}%")
                 print(f"\t\t\t Test Accuracy:     Un: {test_acc[0]:.1f}%  Ps: {test_acc[1]:.1f}%  Mes: {test_acc[2]:.1f}%\n")
 
 
-        if self.verbose:
-            print("End of RWNN training...\n")
+        print("End of RWNN training...\n")
         return all_obj_vals, all_cross_vals, all_train_acc, all_test_acc
             

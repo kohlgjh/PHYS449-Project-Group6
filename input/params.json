@@ -4,7 +4,7 @@
 	"case_3": {"input_size": 42, "hidden_size": 12, "epochs": 300, "learning_rate": 0.01, "momentum": 0.001, "iterations": 35, "subset_size":100, "normalize": true},
 	"case_4": {"input_size": 4, "hidden_size": 3, "epochs": 400, "learning_rate": 0.2, "momentum": 0.3, "iterations": 35, "subset_size":300, "normalize": false},
 	"case_5": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.03, "iterations": 35, "subset_size":200, "normalize": true},
-	"case_6": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 35, "subset_size":400, "normalize": true},
-	"case_7": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 20, "subset_size":250, "normalize": true},
-	"case_8": {"input_size": 8, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 20, "subset_size":250, "normalize": true}
+	"case_6": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.03, "iterations": 35, "subset_size":200, "normalize": true},
+	"case_7": {"input_size": 7, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.001, "iterations": 35, "subset_size":250, "normalize": true},
+	"case_8": {"input_size": 8, "hidden_size": 4, "epochs": 300, "learning_rate": 0.09, "momentum": 0.01, "iterations": 35, "subset_size":250, "normalize": true}
 }
