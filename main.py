@@ -35,9 +35,10 @@ def main(args):
     momentum = case_param['momentum']
     iterations = case_param['iterations']
     subset_size = case_param['subset_size']
+    normalize = case_param['normalize']
 
     # generate datasets
-    data = generate_train_and_test(case, seed=int(args.seed))
+    data = generate_train_and_test(case, normalize, seed=int(args.seed))
 
     # creation of models
     rwnn = RWNN(data, epochs, iterations, learning_rate, momentum, verbose, input_size, hidden_size, subset_size, args.device, args.seed)

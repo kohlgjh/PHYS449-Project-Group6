@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import os
 
-def generate_train_and_test(case_num, seed=1234, num_samples=680):
+def generate_train_and_test(case_num, normalize, seed=1234, num_samples=680):
     '''
     Reads in CSV for specified case and returns 80/20 split of train/test:
     
@@ -11,6 +11,8 @@ def generate_train_and_test(case_num, seed=1234, num_samples=680):
     ---
     case_num: int
         1-8: feature case to use
+    normalize: bool
+        whether or not to normalize data to 0-1 for each column
     seed: int
         seed to feed to random number generator for bootstrapping
     num_samples: int
@@ -51,13 +53,14 @@ def generate_train_and_test(case_num, seed=1234, num_samples=680):
     test = np.concatenate((agg_0[int(num_samples*0.8):, :], agg_1[int(num_samples*0.8):, :], agg_2[int(num_samples*0.8):, :]))
 
     # combine train and test for high/low calc only
-    train_test = np.concatenate((train, test))
+    if normalize: train_test = np.concatenate((train, test))
 
     # calculate highest and lowest value in each column
-    high_low = []
-    for i in range(train_test.shape[1]):
-        if i != 0: # don't want to mess with labels
-            high_low.append((max(train_test[:,i]), min(train_test[:,i])))
+    if normalize:
+        high_low = []
+        for i in range(train_test.shape[1]):
+            if i != 0: # don't want to mess with labels
+                high_low.append((max(train_test[:,i]), min(train_test[:,i])))
 
     # shuffle arrays so not clumped by target type due to concatenation
     np.random.shuffle(train)
@@ -79,13 +82,14 @@ def generate_train_and_test(case_num, seed=1234, num_samples=680):
     test_target[np.where(test_target1D == 2), :] = [0, 0, 1]
 
     # normalize input data using highest and lowest val of each column
-    for i in range(train_input.shape[0]):
-        for j in range(train_input.shape[1]):
-            train_input[i, j] = (train_input[i, j] - high_low[j][1]) / (high_low[j][0] - high_low[j][1])
+    if normalize:
+        for i in range(train_input.shape[0]):
+            for j in range(train_input.shape[1]):
+                train_input[i, j] = (train_input[i, j] - high_low[j][1]) / (high_low[j][0] - high_low[j][1])
 
-    for i in range(test_input.shape[0]):
-        for j in range(test_input.shape[1]):
-            test_input[i, j] = (test_input[i, j] - high_low[j][1]) / (high_low[j][0] - high_low[j][1])
+        for i in range(test_input.shape[0]):
+            for j in range(test_input.shape[1]):
+                test_input[i, j] = (test_input[i, j] - high_low[j][1]) / (high_low[j][0] - high_low[j][1])
 
 
     return train_input, train_target, test_input, test_target

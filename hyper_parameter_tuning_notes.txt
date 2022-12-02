@@ -1,83 +1,97 @@
 Case 1:
 
-Can either identify meso or psychro but not both at the same time.
-This is probably due to subtle differences in only a few features between the two that
-ends up getting lost amongst the large quantity of features (45).
+Identifies unhabitable with 100% accuracy, has a harder time with the 
+habitable classifications.
 RWNN:
 
-Iteration: 20/20
-End of iteration:        Training Loss: 0.141    Test Loss: 0.146
-                         Training Accuracy: Un: 84.5%  Ps: 100.0%  Mes: 0.0%
-                         Test Accuracy:     Un: 85.3%  Ps: 100.0%  Mes: 0.0%
+Iteration: 30/30
+End of iteration:        Training Loss: 0.107    Test Loss: 0.108
+                         Training Accuracy: Un: 100.0%  Ps: 81.2%  Mes: 70.5%
+                         Test Accuracy:     Un: 100.0%  Ps: 69.9%  Mes: 65.4%
 
 Vanilla:
 
-Epoch 12000/12000:       Training Loss: 0.138    Test Loss: 0.141
-                         Training Accuracy: Un: 86.8%  Ps: 100.0%  Mes: 0.0%
-                         Test Accuracy:     Un: 83.1%  Ps: 100.0%  Mes: 0.0%
+Final Results:           Training Loss: 0.106    Test Loss: 0.107
+                         Training Accuracy: Un: 99.8%  Ps: 94.5%  Mes: 55.5%
+                         Test Accuracy:     Un: 100.0%  Ps: 92.6%  Mes: 49.3%
 
 Case 2:
 
+This case performs far better when normalization of inputs is turned off.
+
 RWNN:
 Iteration: 20/20
-End of iteration:        Training Loss: 0.031    Test Loss: 0.032
+Iteration: 20/20
+End of iteration:        Training Loss: 0.030    Test Loss: 0.031
                          Training Accuracy: Un: 96.1%  Ps: 100.0%  Mes: 94.7%
                          Test Accuracy:     Un: 96.3%  Ps: 100.0%  Mes: 94.1%
 
 Vanilla:
-Epoch 6000/6000:         Training Loss: 0.021    Test Loss: 0.022
-                         Training Accuracy: Un: 97.8%  Ps: 100.0%  Mes: 92.5%
+Final Results:           Training Loss: 0.027    Test Loss: 0.027
+                         Training Accuracy: Un: 98.3%  Ps: 100.0%  Mes: 92.5%
                          Test Accuracy:     Un: 97.8%  Ps: 100.0%  Mes: 94.1%
 
 Case 3:
 
-Like case 1 we see that it can either get psychro or meso, but not both.
+Both networks struggle to differentiate psychro from meso
 
 RWNN:
-Iteration: 19/19
-End of iteration:        Training Loss: 0.173    Test Loss: 0.178
-                         Training Accuracy: Un: 100.0%  Ps: 95.3%  Mes: 54.3%
-                         Test Accuracy:     Un: 97.8%  Ps: 92.6%  Mes: 61.0%
+Iteration: 35/35
+End of iteration:        Training Loss: 0.146    Test Loss: 0.137
+                         Training Accuracy: Un: 96.6%  Ps: 0.0%  Mes: 100.0%
+                         Test Accuracy:     Un: 100.0%  Ps: 0.0%  Mes: 100.0%
 
 Vanilla:
-Final Results:           Training Loss: 0.172    Test Loss: 0.174
-                         Training Accuracy: Un: 93.6%  Ps: 88.4%  Mes: 27.8%
-                         Test Accuracy:     Un: 93.4%  Ps: 82.4%  Mes: 24.3%
+Final Results:           Training Loss: 0.139    Test Loss: 0.140
+                         Training Accuracy: Un: 99.8%  Ps: 100.0%  Mes: 3.5%
+                         Test Accuracy:     Un: 100.0%  Ps: 100.0%  Mes: 2.9%
 
 Case 4:
 
-Loss reduces very fast, most likely due to this being smallest feature set.
+Similar to case 2 this performs a lot better without normalization.
+It may have something to do with both case 2 & case 4 having the smallest
+number of features.
 
 RWNN:
-Iteration: 40/40
-End of iteration:        Training Loss: 0.076    Test Loss: 0.075
-                         Training Accuracy: Un: 91.5%  Ps: 96.2%  Mes: 74.3%
-                         Test Accuracy:     Un: 92.6%  Ps: 94.9%  Mes: 72.8%
+Iteration: 35/35
+End of iteration:        Training Loss: 0.069    Test Loss: 0.070
+                         Training Accuracy: Un: 91.3%  Ps: 89.9%  Mes: 85.0%
+                         Test Accuracy:     Un: 92.6%  Ps: 94.9%  Mes: 77.9%
 
 Vanilla:
-Final Results:           Training Loss: 0.070    Test Loss: 0.072
-                         Training Accuracy: Un: 93.0%  Ps: 95.0%  Mes: 73.7%
-                         Test Accuracy:     Un: 92.6%  Ps: 94.9%  Mes: 72.8%
+Final Results:           Training Loss: 0.062    Test Loss: 0.066
+                         Training Accuracy: Un: 93.0%  Ps: 95.0%  Mes: 77.9%
+                         Test Accuracy:     Un: 92.6%  Ps: 94.9%  Mes: 75.0%
 
 Case 5:
 
-Will not learn regardless of parameters. I think it is because case 5 is only the planet
-radius and some info about the star. The network can't seem to find any correlation between
-the features and the habitability.
-
-Jumps between all classifiers going to one of the three labels. 
-
-"case_5": {"input_size": 7, "hidden_size": 25, "epochs": 500, "learning_rate": 0.09, "momentum": 0.01, "iterations": 19, "subset_size":200}
-
 RWNN:
 
-Iteration: 19/19
-End of iteration:        Training Loss: 0.222    Test Loss: 0.222
-                         Training Accuracy: Un: 100.0%  Ps: 0.0%  Mes: 0.0%
-                         Test Accuracy:     Un: 100.0%  Ps: 0.0%  Mes: 0.0%
+Iteration: 35/35
+End of iteration:        Training Loss: 0.067    Test Loss: 0.067
+                         Training Accuracy: Un: 91.3%  Ps: 89.9%  Mes: 85.0%
+                         Test Accuracy:     Un: 92.6%  Ps: 94.9%  Mes: 77.9%
 
 Vanilla:
 
-Final Results:           Training Loss: 0.222    Test Loss: 0.222
-                         Training Accuracy: Un: 100.0%  Ps: 0.0%  Mes: 0.0%
-                         Test Accuracy:     Un: 100.0%  Ps: 0.0%  Mes: 0.0%
+Final Results:           Training Loss: 0.062    Test Loss: 0.066
+                         Training Accuracy: Un: 93.0%  Ps: 95.0%  Mes: 77.9%
+                         Test Accuracy:     Un: 92.6%  Ps: 94.9%  Mes: 75.0%
+
+
+Case 6:
+
+Loss plateaus for both methods with essentially no difference between the two.
+
+RWNN:
+
+Iteration: 35/35
+End of iteration:        Training Loss: 0.173    Test Loss: 0.170
+                         Training Accuracy: Un: 71.2%  Ps: 73.5%  Mes: 28.8%
+                         Test Accuracy:     Un: 79.4%  Ps: 70.6%  Mes: 26.5%
+
+Vanilla:
+
+Final Results:           Training Loss: 0.168    Test Loss: 0.169
+                         Training Accuracy: Un: 78.3%  Ps: 76.5%  Mes: 27.8%
+                         Test Accuracy:     Un: 79.4%  Ps: 70.6%  Mes: 26.5%
