@@ -54,29 +54,29 @@ number of features.
 
 RWNN:
 Iteration: 35/35
-End of iteration:        Training Loss: 0.069    Test Loss: 0.070
-                         Training Accuracy: Un: 91.3%  Ps: 89.9%  Mes: 85.0%
-                         Test Accuracy:     Un: 92.6%  Ps: 94.9%  Mes: 77.9%
+End of iteration:        Training Loss: 0.086    Test Loss: 0.089
+                         Training Accuracy: Un: 91.3%  Ps: 76.4%  Mes: 85.0%
+                         Test Accuracy:     Un: 92.6%  Ps: 75.0%  Mes: 78.7%
 
 Vanilla:
-Final Results:           Training Loss: 0.062    Test Loss: 0.066
-                         Training Accuracy: Un: 93.0%  Ps: 95.0%  Mes: 77.9%
-                         Test Accuracy:     Un: 92.6%  Ps: 94.9%  Mes: 75.0%
+Final Results:           Training Loss: 0.071    Test Loss: 0.073
+                         Training Accuracy: Un: 93.0%  Ps: 83.3%  Mes: 76.1%
+                         Test Accuracy:     Un: 91.9%  Ps: 86.8%  Mes: 75.7%
 
 Case 5:
 
 RWNN:
 
 Iteration: 35/35
-End of iteration:        Training Loss: 0.067    Test Loss: 0.067
-                         Training Accuracy: Un: 91.3%  Ps: 89.9%  Mes: 85.0%
-                         Test Accuracy:     Un: 92.6%  Ps: 94.9%  Mes: 77.9%
+End of iteration:        Training Loss: 0.173    Test Loss: 0.170
+                         Training Accuracy: Un: 71.2%  Ps: 73.5%  Mes: 28.8%
+                         Test Accuracy:     Un: 79.4%  Ps: 70.6%  Mes: 26.5%
 
 Vanilla:
 
-Final Results:           Training Loss: 0.062    Test Loss: 0.066
-                         Training Accuracy: Un: 93.0%  Ps: 95.0%  Mes: 77.9%
-                         Test Accuracy:     Un: 92.6%  Ps: 94.9%  Mes: 75.0%
+Final Results:           Training Loss: 0.168    Test Loss: 0.169
+                         Training Accuracy: Un: 79.4%  Ps: 76.5%  Mes: 24.6%
+                         Test Accuracy:     Un: 79.4%  Ps: 70.6%  Mes: 23.5%
 
 
 Case 6:
