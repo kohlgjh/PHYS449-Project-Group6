@@ -9,11 +9,16 @@ Goal: To recreate the results of the reference paper to gain a better understand
 Dependencies (see requirements.txt): -Pytorch -Numpy -matplotlib -Pandas
 
 To run: python main.py --case #
-Where number is an integer between 1 and 8 (inclusive).
+
+Where # is an integer between 1 and 8 (inclusive).
 Additional, optional arguments:
+
 --verbose: True/False for high/low verbosity during training. Defualts to True. 
+
 --seed: integer to seed random number generation. Defaults to 1234
+
 --params: relative path to JSON parameter file. Defaults to input/params.json
+
 --device: cuda or cpu. Device that pytorch should use during training.
 
 ## Overview:
